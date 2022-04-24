@@ -4,20 +4,36 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MarkdownParse {
 
     public static ArrayList<String> getLinks(String markdown) {
         ArrayList<String> toReturn = new ArrayList<>();
+
         // find the next [, then find the ], then find the (, then read link upto next )
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
+
+            //checks for image reference: if it is an image then its not added to toReturn
+            if (markdown.indexOf("!", currentIndex) == markdown.indexOf("[", currentIndex)-1) {
+                currentIndex+=2;
+                break;
+            }
+
             int openBracket = markdown.indexOf("[", currentIndex);
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket);
             int closeParen = markdown.indexOf(")", openParen);
+
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
+
+            // if space between [] and () skip the space so code can properly extract link
+            if (openParen != closeBracket + 1) {
+                currentIndex++;
+            }
+
         }
 
         return toReturn;
