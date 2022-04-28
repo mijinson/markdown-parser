@@ -1,5 +1,6 @@
 //https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,13 +31,13 @@ public class MarkdownParse {
             currentIndex = closeParen + 1;
 
             // if space between [] and () skip the space so code can properly extract link
-            if (openParen != closeBracket + 1) {
-                currentIndex++;
-            }
+            // if (openParen != closeBracket + 1) {
+            //     currentIndex++;
+            // }
 
-            if (markdown.substring(openParen + 1, closeParen).isBlank()) {
-                break;
-            }
+            // if (markdown.substring(openParen + 1, closeParen).isBlank()) {
+            //     break;
+            // }
         }
 
         return toReturn;
