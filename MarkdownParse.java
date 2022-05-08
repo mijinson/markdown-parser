@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class MarkdownParse {
 
     public static ArrayList<String> getLinks(String markdown) {
-        ArrayList<String> toReturn = new ArrayList<>();
+        ArrayList<String> toReturn = new ArrayList<String>();
 
         // find the next [, then find the ], then find the (, then read link upto next )
         int currentIndex = 0;
@@ -30,14 +30,14 @@ public class MarkdownParse {
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
 
-            // if space between [] and () skip the space so code can properly extract link
-            // if (openParen != closeBracket + 1) {
-            //     currentIndex++;
-            // }
+            //if space between [] and () skip the space so code can properly extract link
+            if (openParen != closeBracket + 1) {
+                currentIndex++;
+            }
 
-            // if (markdown.substring(openParen + 1, closeParen).isBlank()) {
-            //     break;
-            // }
+            if (markdown.substring(openParen + 1, closeParen).isBlank()) {
+                break;
+            }
         }
 
         return toReturn;
